@@ -1,0 +1,554 @@
+:root {
+  /* สีพื้นหลังและตัวอักษร (Chromatic Pulse Palette) */
+  --bg-obsidian: #0D0E12;
+  --surface-card: #161821;
+  --surface-hover: #1F222E;
+  --ink-white: #F4F4F6;
+  --ink-muted: #9CA3AF;
+  --line-grid: rgba(255, 255, 255, 0.12);
+
+  /* สีประจำ 5 สาขา */
+  --dga: #FF2A6D;
+  --dgd: #FFB800;
+  --igd: #00F0B5;
+  --afx: #4D61FC;
+  --den: #A855F7;
+
+  /* ตัวแปรควบคุมการคืนสี (0 ถึง 1) */
+  --progress: 0;
+  --active-color: #F4F4F6;
+
+  --font-head: 'Bai Jamjuree', sans-serif;
+  --font-body: 'Anuphan', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-obsidian);
+  color: var(--ink-white);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  min-height: 100dvh;
+  display: flex;
+  justify-content: center;
+  background-image: 
+    linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.app-shell {
+  width: 100%;
+  max-width: 440px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--line-grid);
+  border-right: 1px solid var(--line-grid);
+  background: rgba(13, 14, 18, 0.85);
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* ส่วนหัวแสดงเมือง & คลื่นสี */
+.city-visualizer {
+  position: relative;
+  padding-top: 20px;
+  border-bottom: 1px solid var(--line-grid);
+  overflow: hidden;
+  filter: grayscale(calc(1 - var(--progress)));
+  transition: filter 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(36px);
+  opacity: calc(0.15 + (var(--progress) * 0.45));
+  pointer-events: none;
+  transition: opacity 0.8s ease;
+}
+
+.orb-1 {
+  width: 140px;
+  height: 140px;
+  background: var(--dga);
+  top: -30px;
+  left: 10%;
+}
+
+.orb-2 {
+  width: 160px;
+  height: 160px;
+  background: var(--afx);
+  top: -20px;
+  right: 5%;
+}
+
+.skyline-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.b-dga { fill: var(--dga); opacity: 0.85; }
+.b-dgd { fill: var(--dgd); opacity: 0.85; }
+.b-igd { fill: var(--igd); opacity: 0.85; }
+.b-afx { fill: var(--afx); opacity: 0.85; }
+.b-den { fill: var(--den); opacity: 0.85; }
+.ground-line { stroke: var(--ink-white); stroke-width: 2; opacity: 0.3; }
+
+/* แถบจุดความคืบหน้า 11 ฉาก */
+.progress-bar-wrap {
+  padding: 12px 20px;
+  background: rgba(0, 0, 0, 0.4);
+  border-top: 1px solid var(--line-grid);
+}
+
+.progress-dots {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 6px;
+}
+
+.dot {
+  height: 4px;
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  transition: background-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+.dot.active {
+  background: var(--ink-white);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+/* กล่องเนื้อหาหลัก */
+.game-container {
+  flex: 1;
+  padding: 24px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  animation: fadeSlideUp 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.eyebrow {
+  font-family: var(--font-head);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-head);
+  line-height: 1.3;
+  font-weight: 700;
+}
+
+h1 { font-size: 1.85rem; margin-bottom: 12px; }
+h2 { font-size: 1.45rem; margin-bottom: 12px; }
+h3 { font-size: 1.15rem; margin-bottom: 8px; }
+
+.story-text {
+  color: #D1D5DB;
+  margin-bottom: 16px;
+}
+
+.how-list {
+  list-style: none;
+  background: var(--surface-card);
+  border: 1px solid var(--line-grid);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0 24px;
+  display: grid;
+  gap: 10px;
+  font-size: 0.92rem;
+}
+
+.how-list li::before {
+  content: "✦ ";
+  color: var(--igd);
+}
+
+/* ปุ่มกดและตัวเลือก */
+.choices-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.choice-btn {
+  width: 100%;
+  min-height: 54px;
+  text-align: left;
+  background: var(--surface-card);
+  color: var(--ink-white);
+  border: 1px solid var(--line-grid);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-family: var(--font-body);
+  font-size: 0.98rem;
+  line-height: 1.5;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: transform 0.15s ease, background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.choice-btn:hover, .choice-btn:focus-visible {
+  background: var(--surface-hover);
+  border-color: var(--ink-white);
+  transform: translateY(-2px);
+}
+
+.choice-btn:active {
+  transform: scale(0.98);
+}
+
+.debug-badge {
+  font-size: 0.72rem;
+  font-family: monospace;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #FDE047;
+  flex-shrink: 0;
+}
+
+.primary-btn {
+  width: 100%;
+  min-height: 54px;
+  background: var(--ink-white);
+  color: var(--bg-obsidian);
+  border: none;
+  border-radius: 12px;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+  margin-top: auto;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+
+.primary-btn:hover { opacity: 0.92; }
+.primary-btn:active { transform: scale(0.98); }
+
+.secondary-btn {
+  width: 100%;
+  min-height: 48px;
+  background: transparent;
+  color: var(--ink-muted);
+  border: 1px solid var(--line-grid);
+  border-radius: 12px;
+  font-family: var(--font-head);
+  font-size: 0.95rem;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* การ์ดย่านในบทที่ 3 */
+.district-card {
+  background: var(--surface-card);
+  border: 1px solid var(--line-grid);
+  border-left: 4px solid var(--d-color, var(--ink-white));
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.district-npc {
+  font-size: 0.92rem;
+  color: #D1D5DB;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+/* ฟอร์มบัตรผ่าน (Optional) */
+.passport-form {
+  display: grid;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 0.92rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.form-group input[type="text"],
+.form-group select {
+  width: 100%;
+  min-height: 46px;
+  background: var(--surface-card);
+  border: 1px solid var(--line-grid);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--ink-white);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.pill-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface-card);
+  border: 1px solid var(--line-grid);
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  cursor: pointer;
+}
+
+.pill-label:has(input:checked) {
+  border-color: var(--igd);
+  background: rgba(0, 240, 181, 0.12);
+}
+
+/* หน้าผลลัพธ์ (Ending Result) */
+.result-hero {
+  border-radius: 16px;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+  color: #0D0E12;
+  background: var(--result-bg, #F4F4F6);
+  position: relative;
+  overflow: hidden;
+  animation: pulseReveal 0.8s ease-out;
+}
+
+@keyframes pulseReveal {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.result-hero .badge {
+  display: inline-block;
+  background: rgba(13, 14, 18, 0.15);
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.result-hero h2 {
+  font-size: 1.65rem;
+  margin-bottom: 8px;
+}
+
+.career-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 12px 0 20px;
+}
+
+.career-tag {
+  background: var(--surface-card);
+  border: 1px solid var(--line-grid);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+}
+
+.career-tag.highlight {
+  border-color: var(--igd);
+  color: var(--igd);
+  font-weight: 600;
+}
+
+.major-box {
+  background: var(--surface-card);
+  border: 1px solid var(--line-grid);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+/* รองรับผู้ที่ปิดแอนิเมชัน */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* --- MASCOT IMAGE & ANIMATION --- */
+.result-mascot-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 16px auto 24px;
+  min-height: 150px;
+}
+
+.mascot-img {
+  width: 150px;
+  height: 150px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+}
+
+.mixed-mascots {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.mixed-mascots .mascot-img {
+  width: 120px;
+  height: 120px;
+}
+
+/* อนิเมชันแบบดึ๋งดั๋งกระดาษ (Idle bounce & sway) */
+@keyframes bounceDGA {
+  0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+  50% { transform: translateY(-8px) scale(1.03) rotate(2deg); }
+}
+@keyframes slideDGD {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-5px) rotate(-1.5deg); }
+}
+@keyframes floatIGD {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(3px, -7px) scale(1.02); }
+}
+@keyframes flickerAFX {
+  0%, 100% { transform: translateY(0) scale(1); filter: brightness(1); }
+  50% { transform: translateY(-9px) scale(0.98); filter: brightness(1.15); }
+}
+@keyframes rotateDEN {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.05) rotate(4deg); }
+}
+
+.ani-dga { animation: bounceDGA 3.5s ease-in-out infinite; transform-origin: bottom center; }
+.ani-dgd { animation: slideDGD 4s ease-in-out infinite; transform-origin: center center; }
+.ani-igd { animation: floatIGD 3.2s ease-in-out infinite; transform-origin: bottom center; }
+.ani-afx { animation: flickerAFX 2.8s ease-in-out infinite; transform-origin: bottom center; }
+.ani-den { animation: rotateDEN 4.5s ease-in-out infinite; transform-origin: center center; }
+
+/* --- IMAGINE CITY ARCHITECTURE & HUD --- */
+.city-hud {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 6px;
+  font-family: var(--font-head);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-muted);
+  position: relative;
+  z-index: 2;
+}
+
+.hud-pulse {
+  color: var(--ink-white);
+  font-weight: 600;
+}
+
+.orb-3 {
+  width: 120px;
+  height: 120px;
+  background: var(--igd);
+  top: 10px;
+  left: 42%;
+}
+
+/* วงคลื่นความถี่ด้านหลังเมือง */
+.freq-ring {
+  fill: none;
+  stroke: var(--ink-white);
+  stroke-width: 0.75;
+  stroke-dasharray: 4 6;
+  opacity: calc(0.08 + (var(--progress) * 0.18));
+  transform-origin: 210px 145px;
+}
+.ring-1 { animation: spinSlow 40s linear infinite; }
+.ring-2 { animation: spinSlow 60s linear infinite reverse; }
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* รายละเอียดหน้าต่างและเส้นสถาปัตยกรรม */
+.win-dark { fill: #0D0E12; opacity: 0.75; }
+.win-light { fill: #FFFBEB; opacity: 0.85; }
+.stroke-detail { fill: none; stroke: #0D0E12; stroke-width: 2; stroke-linecap: round; opacity: 0.6; }
+.stroke-amber { stroke: #FFB800; stroke-width: 1.5; stroke-linecap: round; }
+.stroke-light { stroke: rgba(255, 255, 255, 0.35); stroke-width: 1.5; }
+
+.antenna-afx { stroke: #93C5FD; stroke-width: 2; stroke-linecap: round; }
+.holo-ring { fill: none; stroke: #93C5FD; stroke-width: 1.5; opacity: 0.85; }
+
+.antenna-den { stroke: #E9D5FF; stroke-width: 2; stroke-linecap: round; }
+.sound-wave {
+  fill: none;
+  stroke: #D8B4FE;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  animation: pulseWave 2s ease-in-out infinite;
+}
+
+@keyframes pulseWave {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 1; }
+}
+
+/* พิกเซลลอยตัวโซนเกม */
+.pixel-float { fill: #00F0B5; }
+.p1 { animation: floatPixel 2.6s ease-in-out infinite; }
+.p2 { animation: floatPixel 3.2s ease-in-out infinite 0.8s; }
+
+@keyframes floatPixel {
+  0%, 100% { transform: translateY(0); opacity: 0.5; }
+  50% { transform: translateY(-6px); opacity: 1; }
+}
+
+/* ดวงไฟนำทางเคลื่อนที่ตาม Progress */
+.guiding-spark {
+  transform: translate(calc(24px + (var(--progress) * 372px)), 32px);
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.spark-halo {
+  fill: #FFF6C9;
+  opacity: 0.3;
+  animation: sparkBreath 2s ease-in-out infinite;
+}
+.spark-core {
+  fill: #FFFFFF;
+}
+
+@keyframes sparkBreath {
+  0%, 100% { transform: scale(0.85); opacity: 0.25; }
+  50% { transform: scale(1.3); opacity: 0.5; }
+}
