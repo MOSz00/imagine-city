@@ -105,7 +105,6 @@ function renderIntro() {
 
   const { intro } = gameData;
   container.innerHTML = `
-    <p class="eyebrow">IMAGINE CITY • SDM</p>
     <h1>${intro.title}</h1>
     <p class="story-text"><strong>${intro.hook}</strong></p>
     ${intro.story.map(p => `<p class="story-text">${p}</p>`).join("")}
