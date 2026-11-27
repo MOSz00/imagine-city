@@ -566,7 +566,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 0 18px rgba(0, 0, 0, 0.85);
 }
 
-/* ดวงดาวและหน้าต่างกะพริบ */
 @keyframes starBlinkPulse {
   0%, 100% { opacity: 0.2; transform: scale(0.85); }
   50% { opacity: 1; transform: scale(1.2); }
@@ -577,7 +576,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   transform-origin: center;
 }
 
-/* คลื่นระลอกกระจาย (Ripple) */
 @keyframes waveRippleExpansion {
   0% { transform: scale(0.7); opacity: 0.65; }
   100% { transform: scale(1.2); opacity: 0; }
@@ -588,7 +586,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   transform-origin: center;
 }
 
-/* อนุภาคลอยขึ้นลงนุ่มนวล */
 @keyframes floatVertical {
   0%, 100% { transform: translateY(0px); }
   50% { transform: translateY(-4px); }
@@ -597,7 +594,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   animation: floatVertical 2.8s ease-in-out infinite;
 }
 
-/* เส้นทาง 5 สายมีกระแสพลังงานวิ่ง (บทที่ 1) */
 @keyframes pathEnergyFlow {
   0% { stroke-dashoffset: 48; }
   100% { stroke-dashoffset: 0; }
@@ -607,7 +603,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   animation: pathEnergyFlow 1.8s linear infinite;
 }
 
-/* คลื่นรบกวน & ไฟกะพริบ (บทที่ 2) */
 @keyframes glitchWaveMotion {
   0%, 100% { transform: translateX(0px) skewX(0deg); opacity: 0.9; }
   30% { transform: translateX(-2px) skewX(-4deg); opacity: 1; }
@@ -633,7 +628,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   animation: riverDrift 4s ease-in-out infinite;
 }
 
-/* เรดาร์หมุนสแกน (บทที่ 3) */
 @keyframes radarSweepRotation {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
@@ -643,7 +637,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   transform-origin: 0px 0px;
 }
 
-/* แท่ง Equalizer เต้นตามคลื่นเสียง (บทที่ 3 & บทที่ 5) */
 @keyframes eqBounce {
   0%, 100% { transform: scaleY(0.45); opacity: 0.5; }
   50% { transform: scaleY(1.15); opacity: 1; }
@@ -654,7 +647,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   transform-origin: bottom;
 }
 
-/* กระแสพลังงานชาร์จประตูหิน (ด่าน Gate) */
 @keyframes chargeSurgeGate {
   0% { stroke-dashoffset: 36; opacity: 0.45; }
   50% { opacity: 1; }
@@ -666,7 +658,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   animation-delay: var(--stream-delay, 0s);
 }
 
-/* สายน้ำพุไหล (บทที่ 4) */
 @keyframes fountainFlow {
   0% { stroke-dashoffset: 18; }
   100% { stroke-dashoffset: 0; }
@@ -675,7 +666,6 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
   animation: fountainFlow 1.2s linear infinite;
 }
 
-/* สปอตไลต์ส่ายและพลุลอยขึ้นฟ้า (บทที่ 5) */
 @keyframes swayLightLeft {
   0%, 100% { transform: rotate(-4deg); }
   50% { transform: rotate(8deg); }
@@ -708,4 +698,151 @@ h3 { font-size: 1.15rem; margin-bottom: 8px; }
 }
 .confetti-rise {
   animation: confettiRise 2.6s ease-out infinite;
+}
+
+/* --- DESKTOP & TABLET VIEWPORT BACKDROP (600px+) --- */
+.desktop-backdrop {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  body {
+    background-color: #07080B;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 32px 16px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  .desktop-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 35%, #121520 0%, #07080B 82%);
+  }
+
+  /* เส้นตาราง Swiss Architectural Grid */
+  .bg-grid-pattern {
+    position: absolute;
+    inset: 0;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 92%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 40%, transparent 92%);
+  }
+
+  /* แสงไฟส่องตามเมาส์ (Interactive Mouse Spotlight) */
+  .bg-mouse-glow {
+    position: absolute;
+    width: 420px;
+    height: 420px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle,
+      rgba(0, 240, 181, calc(0.06 + (var(--progress, 0) * 0.12))) 0%,
+      rgba(77, 97, 252, 0.05) 45%,
+      transparent 70%
+    );
+    transform: translate(calc(var(--mouse-x, 50vw) - 210px), calc(var(--mouse-y, 50vh) - 210px));
+    transition: transform 0.18s ease-out;
+    filter: blur(20px);
+  }
+
+  /* ลูกแก้วแสงเรืองแสง 5 สี */
+  .bg-ambient-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(95px);
+    opacity: calc(0.08 + (var(--progress, 0) * 0.3));
+    transition: opacity 0.8s ease;
+    animation: ambientFloat 14s ease-in-out infinite alternate;
+  }
+
+  .orb-dga { width: 340px; height: 340px; background: #FF2A6D; top: -60px; left: 5%; }
+  .orb-dgd { width: 300px; height: 300px; background: #FFB800; bottom: -40px; left: 10%; animation-delay: -3s; }
+  .orb-igd { width: 320px; height: 320px; background: #00F0B5; top: 38%; left: 50%; transform: translate(-50%, -50%); animation-delay: -6s; }
+  .orb-afx { width: 340px; height: 340px; background: #4D61FC; top: 4%; right: 5%; animation-delay: -9s; }
+  .orb-den { width: 310px; height: 310px; background: #A855F7; bottom: -50px; right: 8%; animation-delay: -12s; }
+
+  @keyframes ambientFloat {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(26px, -30px) scale(1.1); }
+  }
+
+  /* คลื่นเสียง SVG ด้านข้าง */
+  .bg-side-waves {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: calc(0.18 + (var(--progress, 0) * 0.65));
+    transition: opacity 0.8s ease;
+  }
+
+  .bg-wave-line.w1 {
+    animation: sideWaveDrift 7s ease-in-out infinite alternate;
+  }
+  .bg-wave-line.w2 {
+    animation: sideWaveDrift 9s ease-in-out infinite alternate-reverse;
+  }
+
+  @keyframes sideWaveDrift {
+    0% { transform: translateY(-14px); }
+    100% { transform: translateY(14px); }
+  }
+
+  /* เครื่องหมายกากบาทพิกัด 4 มุม */
+  .bg-crosshair {
+    position: absolute;
+    font-family: monospace;
+    font-size: 1rem;
+    color: rgba(244, 244, 246, 0.25);
+    user-select: none;
+  }
+  .ch-tl { top: 46px; left: 28px; }
+  .ch-tr { top: 46px; right: 28px; }
+  .ch-bl { bottom: 46px; left: 28px; }
+  .ch-br { bottom: 46px; right: 28px; }
+
+  /* ป้าย HUD บน-ล่าง */
+  .bg-hud-top,
+  .bg-hud-marks {
+    position: absolute;
+    left: 28px;
+    right: 28px;
+    display: flex;
+    justify-content: space-between;
+    font-family: var(--font-head);
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: rgba(244, 244, 246, 0.24);
+  }
+  .bg-hud-top { top: 20px; }
+  .bg-hud-marks { bottom: 20px; }
+
+  /* กรอบตัวแอปตรงกลาง + แสงเรืองขอบตามความคืบหน้า */
+  .app-shell {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 440px;
+    min-height: calc(100vh - 64px);
+    background: #0D0E12;
+    border: 1px solid rgba(255, 255, 255, calc(0.12 + (var(--progress, 0) * 0.18)));
+    border-radius: 24px;
+    box-shadow: 
+      0 24px 68px rgba(0, 0, 0, 0.8),
+      0 0 calc(var(--progress, 0) * 45px) rgba(0, 240, 181, calc(var(--progress, 0) * 0.18)),
+      0 0 0 1px rgba(255, 255, 255, 0.04) inset;
+    overflow: hidden;
+    transition: box-shadow 0.8s ease, border-color 0.8s ease;
+  }
 }

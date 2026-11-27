@@ -124,6 +124,55 @@
     </main>
   </div>
 
+  <!-- ฉากหลัง Interactive Chromatic Synthesizer สำหรับหน้าจอคอมพิวเตอร์และแท็บเล็ต -->
+  <div class="desktop-backdrop" aria-hidden="true">
+    <div class="bg-grid-pattern"></div>
+    <!-- แสงไฟส่องตามตำแหน่งเมาส์ -->
+    <div class="bg-mouse-glow" id="bgMouseGlow"></div>
+
+    <!-- ลูกแก้วแสงเรืองแสง 5 สี -->
+    <div class="bg-ambient-orb orb-dga"></div>
+    <div class="bg-ambient-orb orb-dgd"></div>
+    <div class="bg-ambient-orb orb-igd"></div>
+    <div class="bg-ambient-orb orb-afx"></div>
+    <div class="bg-ambient-orb orb-den"></div>
+
+    <!-- คลื่นความถี่ Audio-Visual ขนาบข้างกรอบแอป -->
+    <svg class="bg-side-waves" viewBox="0 0 1440 800" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="sideWaveGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#FF2A6D" stop-opacity="0.4"/>
+          <stop offset="25%" stop-color="#FFB800" stop-opacity="0.4"/>
+          <stop offset="50%" stop-color="#00F0B5" stop-opacity="0.5"/>
+          <stop offset="75%" stop-color="#4D61FC" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#A855F7" stop-opacity="0.4"/>
+        </linearGradient>
+      </defs>
+      <!-- คลื่นฝั่งซ้าย -->
+      <path d="M-20 260 Q 120 210, 260 260 T 520 260" stroke="url(#sideWaveGrad)" stroke-width="1.5" fill="none" class="bg-wave-line w1"/>
+      <path d="M-20 520 Q 140 570, 280 520 T 520 520" stroke="url(#sideWaveGrad)" stroke-width="1.2" fill="none" stroke-dasharray="6 6" class="bg-wave-line w2"/>
+      <!-- คลื่นฝั่งขวา -->
+      <path d="M920 240 Q 1080 290, 1220 240 T 1460 240" stroke="url(#sideWaveGrad)" stroke-width="1.2" fill="none" stroke-dasharray="6 6" class="bg-wave-line w2"/>
+      <path d="M920 540 Q 1060 490, 1200 540 T 1460 540" stroke="url(#sideWaveGrad)" stroke-width="1.5" fill="none" class="bg-wave-line w1"/>
+    </svg>
+
+    <!-- เครื่องหมายกากบาทพิกัด (Crosshairs) & HUD มุมจอ -->
+    <div class="bg-crosshair ch-tl">+</div>
+    <div class="bg-crosshair ch-tr">+</div>
+    <div class="bg-crosshair ch-bl">+</div>
+    <div class="bg-crosshair ch-br">+</div>
+
+    <div class="bg-hud-top">
+      <span>[ CHROMATIC PULSE // SYNTHESIS MODE ]</span>
+      <span>FREQ: 432Hz — 5 DISTRICTS</span>
+    </div>
+
+    <div class="bg-hud-marks">
+      <span>SYS.CHROMA // 00-100%</span>
+      <span>SDM ARCHITECTURAL VISUALIZER</span>
+    </div>
+  </div>
+
   <script src="js/game.js"></script>
 </body>
 </html>

@@ -15,67 +15,98 @@ const MASCOT_IMAGES = {
   DEN: "images/DEN.png"
 };
 
-// แบนเนอร์ฉากจำลองทั้ง 7 ช่วงของ Imagine City (อัปเกรดรายละเอียดและเลเยอร์แอนิเมชันเต็มรูปแบบ)
+// แบนเนอร์ฉากจำลองทั้ง 7 ช่วงของ Imagine City (เพิ่มมิติแสงเงา เลเยอร์สถาปัตยกรรม และแอนิเมชันละเอียดสูง)
 const SCENE_ART = {
   intro: `
     <svg class="scene-banner" viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="introGlow" cx="50%" cy="50%" r="50%">
+        <radialGradient id="introFog" cx="50%" cy="60%" r="55%">
           <stop offset="0%" stop-color="#F4F4F6" stop-opacity="0.22"/>
+          <stop offset="60%" stop-color="#4B5563" stop-opacity="0.06"/>
           <stop offset="100%" stop-color="#0D0E12" stop-opacity="0"/>
         </radialGradient>
+        <linearGradient id="skyGradIntro" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#090A0D"/>
+          <stop offset="100%" stop-color="#141722"/>
+        </linearGradient>
       </defs>
-      <rect width="360" height="110" fill="#0D0E12" />
-      <circle cx="180" cy="54" r="65" fill="url(#introGlow)" class="pulse-core" />
+      <rect width="360" height="110" fill="url(#skyGradIntro)" />
+      <circle cx="180" cy="60" r="95" fill="url(#introFog)" class="pulse-core" />
 
-      <!-- ดวงดาวและละอองแสงยามค่ำคืน -->
-      <g opacity="0.45">
-        <circle cx="28" cy="18" r="1" fill="#FFF" class="star-blink" />
-        <circle cx="74" cy="34" r="1.3" fill="#FFF" class="star-blink" style="animation-delay:0.6s" />
-        <circle cx="122" cy="14" r="0.9" fill="#FFF" />
-        <circle cx="238" cy="22" r="1.4" fill="#FFF" class="star-blink" style="animation-delay:1.1s" />
-        <circle cx="295" cy="16" r="1" fill="#FFF" />
-        <circle cx="332" cy="38" r="1.2" fill="#FFF" class="star-blink" style="animation-delay:0.3s" />
+      <!-- กลุ่มดาวและละอองแสงยามค่ำคืน -->
+      <g opacity="0.55">
+        <path d="M42 20 L58 14 L72 24" stroke="rgba(255,255,255,0.12)" stroke-width="0.75" stroke-dasharray="2 2"/>
+        <circle cx="42" cy="20" r="1.1" fill="#FFF" class="star-blink" />
+        <circle cx="58" cy="14" r="0.9" fill="#FFF" />
+        <circle cx="72" cy="24" r="1.4" fill="#FFF" class="star-blink" style="animation-delay:0.5s" />
+        <circle cx="118" cy="16" r="1" fill="#FFF" />
+        <circle cx="242" cy="18" r="1.4" fill="#FFF" class="star-blink" style="animation-delay:1.1s" />
+        <circle cx="298" cy="14" r="1" fill="#FFF" />
+        <circle cx="328" cy="30" r="1.3" fill="#FFF" class="star-blink" style="animation-delay:0.3s" />
       </g>
-
-      <!-- เส้นกริดพื้นจัตุรัส -->
-      <line x1="0" y1="94" x2="360" y2="94" stroke="rgba(255,255,255,0.16)" stroke-width="1.2" />
-      <path d="M20 94 L0 110 M90 94 L75 110 M180 94 L180 110 M270 94 L285 110 M340 94 L360 110" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
 
       <!-- วงคลื่นสัญญาณชีพจรสีขาว-เทา (Pulse Wave) -->
       <g transform="translate(180, 52)">
-        <circle cx="0" cy="0" r="16" stroke="#F4F4F6" stroke-width="1.2" opacity="0.25" />
-        <circle cx="0" cy="0" r="30" stroke="#F4F4F6" stroke-dasharray="3 5" stroke-width="1.2" opacity="0.35" class="spin-slow" />
-        <circle cx="0" cy="0" r="44" stroke="#F4F4F6" stroke-width="1.5" opacity="0.4" class="wave-ripple" />
-        <circle cx="0" cy="0" r="58" stroke="#F4F4F6" stroke-dasharray="2 6" stroke-width="1" opacity="0.2" class="spin-slow" style="animation-direction:reverse" />
-        <circle cx="0" cy="0" r="70" stroke="#F4F4F6" stroke-width="1" opacity="0.15" class="wave-ripple" style="animation-delay:1.1s" />
+        <circle cx="0" cy="0" r="18" stroke="#F4F4F6" stroke-width="1" opacity="0.3" />
+        <circle cx="0" cy="0" r="32" stroke="#F4F4F6" stroke-dasharray="4 4" stroke-width="1.2" opacity="0.4" class="spin-slow" />
+        <circle cx="0" cy="0" r="46" stroke="#F4F4F6" stroke-width="1.5" opacity="0.45" class="wave-ripple" />
+        <circle cx="0" cy="0" r="60" stroke="#F4F4F6" stroke-dasharray="2 6" stroke-width="1" opacity="0.25" class="spin-slow" style="animation-direction:reverse" />
+        <circle cx="0" cy="0" r="74" stroke="#F4F4F6" stroke-width="1" opacity="0.18" class="wave-ripple" style="animation-delay:1.1s" />
       </g>
 
-      <!-- เส้นขอบฟ้าเมืองไร้สี & หน้าต่างตึกที่เริ่มกะพริบ -->
-      <g fill="#151720" stroke="#2D3142" stroke-width="1">
-        <rect x="14" y="76" width="20" height="18" rx="1" />
-        <rect x="38" y="60" width="24" height="34" rx="1" />
-        <rect x="44" y="66" width="3" height="3" fill="#9CA3AF" stroke="none" class="star-blink" />
-        <rect x="52" y="74" width="3" height="3" fill="#9CA3AF" stroke="none" class="star-blink" style="animation-delay:0.9s" />
-
-        <path d="M74 94 L80 54 H84 L90 94 Z" />
-        <circle cx="82" cy="50" r="2.5" fill="#4B5563" />
-
-        <rect x="102" y="56" width="26" height="38" rx="1" />
-        <rect x="134" y="68" width="20" height="26" rx="1" />
-        <rect x="206" y="64" width="22" height="30" rx="1" />
-        <rect x="234" y="52" width="28" height="42" rx="1" />
-        <rect x="242" y="60" width="3" height="3" fill="#9CA3AF" stroke="none" class="star-blink" style="animation-delay:0.4s" />
-
-        <path d="M274 94 L281 58 H285 L292 94 Z" />
-        <rect x="302" y="66" width="22" height="28" rx="1" />
-        <rect x="328" y="74" width="18" height="20" rx="1" />
+      <!-- เลเยอร์เมืองฉากหลัง (Background Skyline - เพิ่มความลึก) -->
+      <g fill="#11131B" stroke="#1F2433" stroke-width="0.8">
+        <rect x="26" y="66" width="18" height="28" />
+        <rect x="64" y="58" width="22" height="36" />
+        <rect x="116" y="52" width="24" height="42" />
+        <rect x="220" y="50" width="26" height="44" />
+        <rect x="272" y="60" width="20" height="34" />
+        <rect x="314" y="64" width="22" height="30" />
       </g>
+
+      <!-- เลเยอร์เมืองฉากหน้า (Foreground Skyline - สไตล์ Paper Cutout) -->
+      <g fill="#181B26" stroke="#32384D" stroke-width="1.1">
+        <rect x="10" y="76" width="22" height="18" rx="1" />
+        <rect x="36" y="62" width="24" height="32" rx="1" />
+        <!-- หน้าต่างตึกที่เริ่มกะพริบรับสัญญาณ -->
+        <rect x="42" y="68" width="3" height="3" fill="#D1D5DB" stroke="none" class="star-blink" />
+        <rect x="50" y="68" width="3" height="3" fill="#6B7280" stroke="none" />
+        <rect x="42" y="76" width="3" height="3" fill="#6B7280" stroke="none" />
+        <rect x="50" y="76" width="3" height="3" fill="#D1D5DB" stroke="none" class="star-blink" style="animation-delay:0.8s" />
+
+        <!-- หอคอยส่งสัญญาณซ้าย -->
+        <path d="M74 94 L80 52 H84 L90 94 Z" />
+        <line x1="82" y1="42" x2="82" y2="52" stroke="#6B7280" stroke-width="1.2" />
+        <circle cx="82" cy="42" r="2" fill="#9CA3AF" stroke="none" class="star-blink" />
+
+        <rect x="100" y="58" width="26" height="36" rx="1" />
+        <line x1="106" y1="65" x2="120" y2="65" stroke="#32384D" />
+        <line x1="106" y1="71" x2="120" y2="71" stroke="#32384D" />
+
+        <rect x="132" y="70" width="18" height="24" rx="1" />
+        <rect x="210" y="68" width="18" height="26" rx="1" />
+
+        <rect x="234" y="54" width="28" height="40" rx="1" />
+        <rect x="241" y="62" width="3" height="3" fill="#D1D5DB" stroke="none" class="star-blink" style="animation-delay:0.4s" />
+        <rect x="251" y="70" width="3" height="3" fill="#D1D5DB" stroke="none" class="star-blink" style="animation-delay:1.2s" />
+
+        <!-- หอคอยส่งสัญญาณขวา -->
+        <path d="M274 94 L280 56 H284 L290 94 Z" />
+        <line x1="282" y1="46" x2="282" y2="56" stroke="#6B7280" stroke-width="1.2" />
+        <circle cx="282" cy="46" r="2" fill="#9CA3AF" stroke="none" class="star-blink" style="animation-delay:0.6s" />
+
+        <rect x="300" y="64" width="22" height="30" rx="1" />
+        <rect x="326" y="74" width="22" height="20" rx="1" />
+      </g>
+
+      <!-- เส้นพื้นจัตุรัสแบบ Perspective -->
+      <line x1="0" y1="94" x2="360" y2="94" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" />
+      <path d="M30 94 L0 110 M105 94 L85 110 M180 94 L180 110 M255 94 L275 110 M330 94 L360 110" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
 
       <!-- ดวงไฟนำทางตื่นขึ้นกลางจัตุรัส -->
       <g transform="translate(180, 84)">
-        <circle cx="0" cy="0" r="11" fill="#FFF" opacity="0.2" class="wave-ripple" />
-        <circle cx="0" cy="0" r="4" fill="#FFF" class="pulse-core" />
+        <circle cx="0" cy="0" r="13" fill="#FFF" opacity="0.22" class="wave-ripple" />
+        <polygon points="0,-7 2,-2 7,0 2,2 0,7 -2,2 -7,0 -2,-2" fill="#FFF" class="pulse-core" />
       </g>
     </svg>
   `,
@@ -83,48 +114,66 @@ const SCENE_ART = {
   ch1: `
     <svg class="scene-banner" viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="360" height="110" fill="#0D0E12" />
-      <!-- เส้นกริดพื้นจัตุรัส -->
-      <ellipse cx="180" cy="96" rx="140" ry="12" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
-      <ellipse cx="180" cy="96" rx="80" ry="7" stroke="rgba(255,255,255,0.14)" stroke-width="1" />
+      <!-- กริดพื้นจัตุรัสเรขาคณิต -->
+      <ellipse cx="180" cy="96" rx="155" ry="13" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+      <ellipse cx="180" cy="96" rx="95" ry="8" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
+      <ellipse cx="180" cy="96" rx="40" ry="4" stroke="rgba(255,255,255,0.2)" stroke-width="1" />
 
-      <!-- ทางแยก 5 เส้นทางเรืองแสง + คลื่นวิ่งตามเส้น -->
+      <!-- ทางแยก 5 เส้นทางเรืองแสง + ไอคอนสัญลักษณ์ประจำสาขา -->
       <g stroke-linecap="round" stroke-linejoin="round">
-        <!-- 1. DGA (ชมพู) -->
-        <path d="M180 96 C135 96, 85 82, 34 40" stroke="#FF2A6D" stroke-width="3.5" opacity="0.35" />
-        <path d="M180 96 C135 96, 85 82, 34 40" stroke="#FF2A6D" stroke-width="3.5" class="path-flow" />
-        <path d="M34 40 L25 41 M34 40 L36 49" stroke="#FF2A6D" stroke-width="2.5" />
-        <circle cx="26" cy="25" r="5" fill="#FF2A6D" class="float-y" />
-        <circle cx="18" cy="31" r="2.5" fill="#FF2A6D" opacity="0.7" class="float-y" style="animation-delay:0.4s" />
+        <!-- 1. DGA (ชมพู - หยดสีและประกายศิลป์) -->
+        <path d="M180 96 C135 96, 85 82, 34 42" stroke="#FF2A6D" stroke-width="4" opacity="0.25" />
+        <path d="M180 96 C135 96, 85 82, 34 42" stroke="#FF2A6D" stroke-width="3" class="path-flow" />
+        <path d="M34 42 L25 43 M34 42 L36 51" stroke="#FF2A6D" stroke-width="2.2" />
+        <g class="float-y">
+          <circle cx="24" cy="24" r="6" fill="#FF2A6D" />
+          <circle cx="16" cy="30" r="2.8" fill="#FF759F" />
+          <circle cx="32" cy="18" r="2" fill="#FF2A6D" />
+        </g>
 
-        <!-- 2. DGD (เหลือง) -->
-        <path d="M180 96 C155 96, 122 72, 92 34" stroke="#FFB800" stroke-width="3.5" opacity="0.35" />
-        <path d="M180 96 C155 96, 122 72, 92 34" stroke="#FFB800" stroke-width="3.5" class="path-flow" style="animation-delay:0.2s" />
-        <path d="M92 34 L84 36 M92 34 L94 42" stroke="#FFB800" stroke-width="2.5" />
-        <rect x="82" y="14" width="9" height="9" rx="1" transform="rotate(45 86.5 18.5)" fill="#FFB800" class="float-y" style="animation-delay:0.3s" />
+        <!-- 2. DGD (เหลือง - ข้าวหลามตัดกริด) -->
+        <path d="M180 96 C155 96, 122 72, 92 36" stroke="#FFB800" stroke-width="4" opacity="0.25" />
+        <path d="M180 96 C155 96, 122 72, 92 36" stroke="#FFB800" stroke-width="3" class="path-flow" style="animation-delay:0.2s" />
+        <path d="M92 36 L84 38 M92 36 L94 44" stroke="#FFB800" stroke-width="2.2" />
+        <g class="float-y" style="animation-delay:0.3s">
+          <rect x="81" y="13" width="11" height="11" rx="1.5" transform="rotate(45 86.5 18.5)" fill="#FFB800" />
+          <line x1="81" y1="18.5" x2="92" y2="18.5" stroke="#0D0E12" stroke-width="1" />
+          <line x1="86.5" y1="13" x2="86.5" y2="24" stroke="#0D0E12" stroke-width="1" />
+        </g>
 
-        <!-- 3. IGD (เขียวมินต์) -->
-        <path d="M180 96 V26" stroke="#00F0B5" stroke-width="4" opacity="0.35" />
-        <path d="M180 96 V26" stroke="#00F0B5" stroke-width="4" class="path-flow" style="animation-delay:0.4s" />
-        <path d="M180 26 L174 33 M180 26 L186 33" stroke="#00F0B5" stroke-width="2.5" />
-        <polygon points="180,8 183,14 189,15 184,19 186,25 180,22 174,25 176,19 171,15 177,14" fill="#00F0B5" class="float-y" style="animation-delay:0.6s" />
+        <!-- 3. IGD (เขียวมินต์ - แฉกดาว & พิกเซล) -->
+        <path d="M180 96 V28" stroke="#00F0B5" stroke-width="4.5" opacity="0.25" />
+        <path d="M180 96 V28" stroke="#00F0B5" stroke-width="3.5" class="path-flow" style="animation-delay:0.4s" />
+        <path d="M180 28 L174 35 M180 28 L186 35" stroke="#00F0B5" stroke-width="2.2" />
+        <g class="float-y" style="animation-delay:0.6s">
+          <polygon points="180,7 183,13 190,14 185,19 186,26 180,22 174,26 175,19 170,14 177,13" fill="#00F0B5" />
+          <rect x="166" y="8" width="3" height="3" fill="#00F0B5" />
+          <rect x="191" y="10" width="3" height="3" fill="#00F0B5" />
+        </g>
 
-        <!-- 4. AFX (น้ำเงิน) -->
-        <path d="M180 96 C205 96, 238 72, 268 34" stroke="#4D61FC" stroke-width="3.5" opacity="0.35" />
-        <path d="M180 96 C205 96, 238 72, 268 34" stroke="#4D61FC" stroke-width="3.5" class="path-flow" style="animation-delay:0.6s" />
-        <path d="M268 34 L276 36 M268 34 L266 42" stroke="#4D61FC" stroke-width="2.5" />
-        <path d="M274 12 C270 18, 270 23, 274 26 C278 23, 278 18, 274 12 Z" fill="#4D61FC" class="float-y" style="animation-delay:0.8s" />
+        <!-- 4. AFX (น้ำเงิน - เปลวไฟพลังงาน) -->
+        <path d="M180 96 C205 96, 238 72, 268 36" stroke="#4D61FC" stroke-width="4" opacity="0.25" />
+        <path d="M180 96 C205 96, 238 72, 268 36" stroke="#4D61FC" stroke-width="3" class="path-flow" style="animation-delay:0.6s" />
+        <path d="M268 36 L276 38 M268 36 L266 44" stroke="#4D61FC" stroke-width="2.2" />
+        <g class="float-y" style="animation-delay:0.8s">
+          <path d="M274 10 C268 18, 269 24, 274 27 C279 24, 280 18, 274 10 Z" fill="#4D61FC" />
+          <path d="M274 15 C271 19, 272 23, 274 25 C276 23, 277 19, 274 15 Z" fill="#93C5FD" />
+        </g>
 
-        <!-- 5. DEN (ม่วง) -->
-        <path d="M180 96 C225 96, 275 82, 326 40" stroke="#A855F7" stroke-width="3.5" opacity="0.35" />
-        <path d="M180 96 C225 96, 275 82, 326 40" stroke="#A855F7" stroke-width="3.5" class="path-flow" style="animation-delay:0.8s" />
-        <path d="M326 40 L335 41 M326 40 L324 49" stroke="#A855F7" stroke-width="2.5" />
-        <circle cx="334" cy="24" r="4.5" fill="#A855F7" class="float-y" style="animation-delay:1s" />
-        <path d="M341 20 Q345 24 341 28" stroke="#A855F7" stroke-width="1.5" class="sound-wave" />
+        <!-- 5. DEN (ม่วง - พระอาทิตย์กระจายคลื่นเสียง) -->
+        <path d="M180 96 C225 96, 275 82, 326 42" stroke="#A855F7" stroke-width="4" opacity="0.25" />
+        <path d="M180 96 C225 96, 275 82, 326 42" stroke="#A855F7" stroke-width="3" class="path-flow" style="animation-delay:0.8s" />
+        <path d="M326 42 L335 43 M326 42 L324 51" stroke="#A855F7" stroke-width="2.2" />
+        <g class="float-y" style="animation-delay:1s">
+          <circle cx="334" cy="24" r="5.5" fill="#A855F7" />
+          <path d="M342 19 Q346 24 342 29" stroke="#D8B4FE" stroke-width="1.5" class="sound-wave" />
+          <path d="M345 16 Q350 24 345 32" stroke="#A855F7" stroke-width="1.2" class="sound-wave" style="animation-delay:0.3s" />
+        </g>
       </g>
 
-      <!-- ดวงไฟนำทางตรงทางแยก -->
+      <!-- ดวงไฟนำทางตรงจุดเริ่มต้นทางแยก -->
       <g transform="translate(180, 94)">
-        <circle cx="0" cy="0" r="14" fill="#FFF" opacity="0.25" class="wave-ripple" />
+        <circle cx="0" cy="0" r="15" fill="#FFF" opacity="0.25" class="wave-ripple" />
         <polygon points="0,-9 2.5,-2.5 9,0 2.5,2.5 0,9 -2.5,2.5 -9,0 -2.5,-2.5" fill="#FFF" class="pulse-core" />
       </g>
     </svg>
@@ -134,41 +183,54 @@ const SCENE_ART = {
     <svg class="scene-banner" viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="360" height="110" fill="#0D0E12" />
 
-      <!-- แม่น้ำและระลอกคลื่น -->
-      <path d="M0 90 Q90 83 180 90 T360 90 V110 H0 Z" fill="#121520" />
-      <path d="M40 97 Q90 93 140 97" stroke="rgba(255,255,255,0.08)" stroke-width="1.2" class="river-drift" />
-      <path d="M210 101 Q265 97 320 101" stroke="rgba(0,240,181,0.18)" stroke-width="1.5" class="river-drift" style="animation-delay:1s" />
+      <!-- เงาตึกฝั่งตรงข้ามในหมอกสีเทา -->
+      <g fill="#12141D" opacity="0.8">
+        <rect x="18" y="34" width="22" height="40" />
+        <rect x="46" y="24" width="28" height="50" />
+        <rect x="286" y="28" width="26" height="46" />
+        <rect x="318" y="38" width="24" height="36" />
+      </g>
+
+      <!-- แม่น้ำและแสงสะท้อนคลื่นรบกวน -->
+      <path d="M0 88 Q90 81 180 88 T360 88 V110 H0 Z" fill="#111521" />
+      <ellipse cx="180" cy="96" rx="45" ry="5" fill="#00F0B5" opacity="0.12" class="pulse-core" />
+      <path d="M30 96 Q85 92 140 96" stroke="rgba(255,255,255,0.08)" stroke-width="1.2" class="river-drift" />
+      <path d="M210 100 Q265 96 320 100" stroke="rgba(0,240,181,0.22)" stroke-width="1.5" class="river-drift" style="animation-delay:1s" />
 
       <!-- โครงสร้างสะพานฝั่งซ้าย -->
       <g stroke="#374151" fill="#181B26">
-        <path d="M0 74 H134 L126 52 H0 Z" stroke-width="1.5" />
-        <polyline points="8,74 26,52 46,74 66,52 86,74 106,52 126,74" fill="none" stroke-width="1.3" />
-        <rect x="112" y="74" width="14" height="22" />
+        <path d="M0 74 H134 L124 50 H0 Z" stroke-width="1.5" />
+        <polyline points="6,74 26,50 46,74 66,50 86,74 106,50 124,74" fill="none" stroke-width="1.3" />
+        <!-- รอยแตกหักปลายสะพาน -->
+        <polyline points="134,74 129,67 135,61 128,55 124,50" fill="none" stroke="#6B7280" stroke-width="1.5" />
+        <rect x="110" y="74" width="15" height="24" />
         <!-- เสาไฟริมสะพานซ้าย -->
-        <line x1="122" y1="52" x2="122" y2="38" stroke="#6B7280" stroke-width="1.5" />
-        <circle cx="122" cy="36" r="2.5" fill="#FFB800" class="glitch-flicker" />
+        <line x1="118" y1="50" x2="118" y2="34" stroke="#6B7280" stroke-width="1.5" />
+        <circle cx="118" cy="32" r="3" fill="#FFB800" class="glitch-flicker" />
       </g>
 
       <!-- โครงสร้างสะพานฝั่งขวา -->
       <g stroke="#374151" fill="#181B26">
-        <path d="M360 74 H226 L234 52 H360 Z" stroke-width="1.5" />
-        <polyline points="352,74 334,52 314,74 294,52 274,74 254,52 234,74" fill="none" stroke-width="1.3" />
-        <rect x="234" y="74" width="14" height="22" />
+        <path d="M360 74 H226 L236 50 H360 Z" stroke-width="1.5" />
+        <polyline points="354,74 334,50 314,74 294,50 274,74 254,50 236,74" fill="none" stroke-width="1.3" />
+        <!-- รอยแตกหักปลายสะพาน -->
+        <polyline points="226,74 231,67 225,61 232,55 236,50" fill="none" stroke="#6B7280" stroke-width="1.5" />
+        <rect x="235" y="74" width="15" height="24" />
         <!-- เสาไฟริมสะพานขวา -->
-        <line x1="238" y1="52" x2="238" y2="38" stroke="#6B7280" stroke-width="1.5" />
-        <circle cx="238" cy="36" r="2.5" fill="#FF2A6D" class="glitch-flicker" style="animation-delay:0.4s" />
+        <line x1="242" y1="50" x2="242" y2="34" stroke="#6B7280" stroke-width="1.5" />
+        <circle cx="242" cy="32" r="3" fill="#FF2A6D" class="glitch-flicker" style="animation-delay:0.4s" />
       </g>
 
       <!-- คลื่นสัญญาณรบกวน (Glitch Wave) เชื่อมรอยขาดของสะพาน -->
-      <g filter="drop-shadow(0 0 5px #00F0B5)">
-        <path d="M132 68 Q148 52 164 68 T196 68 T228 68" stroke="#00F0B5" stroke-width="2.8" stroke-linecap="round" class="glitch-wave" />
-        <path d="M134 62 Q152 76 170 62 T206 62 T226 62" stroke="#4D61FC" stroke-width="1.8" stroke-dasharray="4 3" class="glitch-wave" style="animation-delay:0.3s" />
+      <g filter="drop-shadow(0 0 6px #00F0B5)">
+        <path d="M132 66 Q148 50 164 66 T196 66 T228 66" stroke="#00F0B5" stroke-width="3" stroke-linecap="round" class="glitch-wave" />
+        <path d="M134 60 Q152 75 170 60 T206 60 T226 60" stroke="#4D61FC" stroke-width="1.8" stroke-dasharray="4 3" class="glitch-wave" style="animation-delay:0.3s" />
         <!-- พิกเซลแตกกระจายรอบรอยขาด -->
-        <rect x="146" y="46" width="4" height="4" fill="#00F0B5" class="float-y" />
-        <rect x="176" y="42" width="5" height="5" fill="#00F0B5" class="glitch-flicker" />
-        <rect x="204" y="48" width="4" height="4" fill="#00F0B5" class="float-y" style="animation-delay:0.5s" />
-        <rect x="160" y="78" width="6" height="2.5" fill="#00F0B5" opacity="0.8" />
-        <rect x="192" y="76" width="5" height="2.5" fill="#4D61FC" opacity="0.8" />
+        <rect x="144" y="44" width="4.5" height="4.5" fill="#00F0B5" class="float-y" />
+        <rect x="177" y="40" width="5" height="5" fill="#00F0B5" class="glitch-flicker" />
+        <rect x="206" y="46" width="4.5" height="4.5" fill="#00F0B5" class="float-y" style="animation-delay:0.5s" />
+        <rect x="158" y="77" width="7" height="2.5" fill="#00F0B5" opacity="0.85" />
+        <rect x="194" y="75" width="6" height="2.5" fill="#4D61FC" opacity="0.85" />
       </g>
     </svg>
   `,
@@ -178,36 +240,38 @@ const SCENE_ART = {
       <defs>
         <linearGradient id="radarSweep" x1="0" y1="1" x2="1" y2="0">
           <stop offset="0%" stop-color="#00F0B5" stop-opacity="0"/>
-          <stop offset="100%" stop-color="#00F0B5" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#00F0B5" stop-opacity="0.45"/>
         </linearGradient>
       </defs>
       <rect width="360" height="110" fill="#0D0E12" />
 
-      <!-- เส้นกริดเรดาร์ -->
-      <g stroke="rgba(255,255,255,0.06)" stroke-width="1">
-        <line x1="180" y1="0" x2="180" y2="110" />
-        <line x1="0" y1="55" x2="360" y2="55" />
-        <rect x="16" y="14" width="328" height="82" rx="8" stroke="rgba(255,255,255,0.08)" />
+      <!-- กรอบหน้าจอเรดาร์ HUD -->
+      <g stroke="rgba(255,255,255,0.08)" stroke-width="1">
+        <rect x="14" y="12" width="332" height="86" rx="10" />
+        <!-- มุมเล็งเป้าหมาย (Crosshair Corners) -->
+        <path d="M22 26 V18 H30 M330 18 H338 V26 M22 84 V92 H30 M330 92 H338 V84" stroke="#00F0B5" stroke-width="1.5" opacity="0.6" />
+        <line x1="180" y1="12" x2="180" y2="98" stroke-dasharray="2 4" />
+        <line x1="14" y1="55" x2="346" y2="55" stroke-dasharray="2 4" />
       </g>
 
       <!-- แถบคลื่นเสียง Equalizer ซ้าย-ขวา -->
-      <g fill="#00F0B5" opacity="0.55">
-        <rect x="34" y="46" width="3" height="18" rx="1.5" class="eq-bar" style="animation-delay:0.1s" />
-        <rect x="41" y="38" width="3" height="34" rx="1.5" class="eq-bar" style="animation-delay:0.3s" />
-        <rect x="48" y="42" width="3" height="26" rx="1.5" class="eq-bar" style="animation-delay:0.5s" />
-        <rect x="55" y="48" width="3" height="14" rx="1.5" class="eq-bar" style="animation-delay:0.2s" />
+      <g opacity="0.7">
+        <rect x="32" y="48" width="3.5" height="14" rx="1.5" fill="#FF2A6D" class="eq-bar" style="animation-delay:0.1s" />
+        <rect x="40" y="38" width="3.5" height="34" rx="1.5" fill="#FFB800" class="eq-bar" style="animation-delay:0.3s" />
+        <rect x="48" y="42" width="3.5" height="26" rx="1.5" fill="#00F0B5" class="eq-bar" style="animation-delay:0.5s" />
+        <rect x="56" y="46" width="3.5" height="18" rx="1.5" fill="#4D61FC" class="eq-bar" style="animation-delay:0.2s" />
 
-        <rect x="302" y="48" width="3" height="14" rx="1.5" class="eq-bar" style="animation-delay:0.4s" />
-        <rect x="309" y="40" width="3" height="30" rx="1.5" class="eq-bar" style="animation-delay:0.1s" />
-        <rect x="316" y="36" width="3" height="38" rx="1.5" class="eq-bar" style="animation-delay:0.6s" />
-        <rect x="323" y="45" width="3" height="20" rx="1.5" class="eq-bar" style="animation-delay:0.2s" />
+        <rect x="300" y="46" width="3.5" height="18" rx="1.5" fill="#4D61FC" class="eq-bar" style="animation-delay:0.4s" />
+        <rect x="308" y="40" width="3.5" height="30" rx="1.5" fill="#00F0B5" class="eq-bar" style="animation-delay:0.1s" />
+        <rect x="316" y="36" width="3.5" height="38" rx="1.5" fill="#A855F7" class="eq-bar" style="animation-delay:0.6s" />
+        <rect x="324" y="46" width="3.5" height="18" rx="1.5" fill="#FF2A6D" class="eq-bar" style="animation-delay:0.2s" />
       </g>
 
       <!-- วงแหวนเรดาร์สแกนคลื่นความถี่ -->
       <g transform="translate(180, 55)">
         <circle cx="0" cy="0" r="14" stroke="rgba(0, 240, 181, 0.35)" stroke-width="1.2" />
-        <circle cx="0" cy="0" r="28" stroke="#00F0B5" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.45" class="spin-slow" />
-        <circle cx="0" cy="0" r="42" stroke="#00F0B5" stroke-width="1.5" opacity="0.6" />
+        <circle cx="0" cy="0" r="28" stroke="#00F0B5" stroke-width="1.2" stroke-dasharray="3 4" opacity="0.5" class="spin-slow" />
+        <circle cx="0" cy="0" r="42" stroke="#00F0B5" stroke-width="1.5" opacity="0.65" />
         <circle cx="0" cy="0" r="54" stroke="rgba(255, 255, 255, 0.15)" stroke-width="1" stroke-dasharray="2 6" />
 
         <!-- ลำแสงเรดาร์หมุนสแกน -->
@@ -216,10 +280,16 @@ const SCENE_ART = {
           <line x1="0" y1="0" x2="42" y2="0" stroke="#00F0B5" stroke-width="2" />
         </g>
 
-        <!-- จุดสัญญาณ 5 ย่านบนจอเรดาร์ -->
-        <circle cx="-26" cy="-16" r="4" fill="#FF2A6D" class="pulse-core" />
+        <!-- จุดสัญญาณ 5 ย่านบนจอเรดาร์ + วงแหวนล็อกเป้าหมาย -->
+        <g>
+          <circle cx="-26" cy="-16" r="4" fill="#FF2A6D" class="pulse-core" />
+          <circle cx="-26" cy="-16" r="7.5" stroke="#FF2A6D" stroke-width="1" opacity="0.6" class="wave-ripple" />
+        </g>
         <circle cx="-18" cy="24" r="3.5" fill="#FFB800" class="pulse-core" style="animation-delay:0.4s" />
-        <circle cx="24" cy="-20" r="4.5" fill="#00F0B5" class="pulse-core" style="animation-delay:0.8s" />
+        <g>
+          <circle cx="24" cy="-20" r="4.5" fill="#00F0B5" class="pulse-core" style="animation-delay:0.8s" />
+          <circle cx="24" cy="-20" r="8" stroke="#00F0B5" stroke-width="1" opacity="0.7" class="wave-ripple" style="animation-delay:0.8s" />
+        </g>
         <circle cx="28" cy="18" r="3.5" fill="#4D61FC" class="pulse-core" style="animation-delay:1.2s" />
         <circle cx="0" cy="-34" r="3.5" fill="#A855F7" class="pulse-core" style="animation-delay:1.5s" />
 
@@ -231,31 +301,31 @@ const SCENE_ART = {
   gate: `
     <svg class="scene-banner" viewBox="0 0 360 110" fill="none" xmlns="http://www.w3.org/2000/svg">
       <rect width="360" height="110" fill="#0D0E12" />
-      <line x1="0" y1="96" x2="360" y2="96" stroke="rgba(255,255,255,0.16)" stroke-width="1.5" />
+      <line x1="0" y1="96" x2="360" y2="96" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
 
-      <!-- เสาหินโมโนลิธขนาดยักษ์และลวดลายอักขระ -->
+      <!-- เสาหินโมโนลิธขนาดยักษ์และลวดลายอักขระเรืองแสง -->
       <g>
-        <path d="M122 96 L128 16 H232 L238 96 Z" fill="#191C26" stroke="#374151" stroke-width="2" />
-        <path d="M140 96 L144 30 H216 L220 96 Z" fill="#10121A" stroke="#2D3142" stroke-width="1.5" />
-        <!-- ลายสลักเรืองแสงข้างเสา -->
-        <path d="M132 34 H137 V50 H132 M132 62 V78" stroke="#4B5563" stroke-width="1.5" />
-        <path d="M228 34 H223 V50 H228 M228 62 V78" stroke="#4B5563" stroke-width="1.5" />
+        <path d="M118 96 L126 14 H234 L242 96 Z" fill="#181B26" stroke="#374151" stroke-width="2" />
+        <path d="M138 96 L142 28 H218 L222 96 Z" fill="#0F111A" stroke="#2D3142" stroke-width="1.5" />
+        <!-- ลายสลักอักขระข้างเสาซ้าย-ขวา -->
+        <path d="M130 32 H135 V48 H130 M130 60 V76" stroke="#FF2A6D" stroke-width="1.4" opacity="0.6" class="star-blink" />
+        <path d="M230 32 H225 V48 H230 M230 60 V76" stroke="#A855F7" stroke-width="1.4" opacity="0.6" class="star-blink" style="animation-delay:0.7s" />
       </g>
 
       <!-- เส้นพลังงาน 5 สีไหลจากพื้นพุ่งขึ้นสู่แกนกลาง -->
-      <g filter="drop-shadow(0 0 4px rgba(0, 240, 181, 0.6))">
-        <path d="M60 96 H154 L164 34" stroke="#FF2A6D" stroke-width="2.5" class="gate-stream" style="--stream-delay:0s" />
-        <path d="M95 96 H166 L172 34" stroke="#FFB800" stroke-width="2.5" class="gate-stream" style="--stream-delay:0.2s" />
-        <path d="M180 96 V30" stroke="#00F0B5" stroke-width="3" class="gate-stream" style="--stream-delay:0.4s" />
-        <path d="M265 96 H194 L188 34" stroke="#4D61FC" stroke-width="2.5" class="gate-stream" style="--stream-delay:0.6s" />
-        <path d="M300 96 H206 L196 34" stroke="#A855F7" stroke-width="2.5" class="gate-stream" style="--stream-delay:0.8s" />
+      <g filter="drop-shadow(0 0 5px rgba(0, 240, 181, 0.65))">
+        <path d="M40 96 H152 L164 32" stroke="#FF2A6D" stroke-width="2.5" class="gate-stream" style="--stream-delay:0s" />
+        <path d="M85 96 H165 L172 32" stroke="#FFB800" stroke-width="2.5" class="gate-stream" style="--stream-delay:0.2s" />
+        <path d="M180 96 V28" stroke="#00F0B5" stroke-width="3" class="gate-stream" style="--stream-delay:0.4s" />
+        <path d="M275 96 H195 L188 32" stroke="#4D61FC" stroke-width="2.5" class="gate-stream" style="--stream-delay:0.6s" />
+        <path d="M320 96 H208 L196 32" stroke="#A855F7" stroke-width="2.5" class="gate-stream" style="--stream-delay:0.8s" />
       </g>
 
       <!-- วงแหวนกลไกปลดล็อกด้านบนประตู -->
-      <g transform="translate(180, 24)">
-        <circle cx="0" cy="0" r="15" fill="#0D0E12" stroke="#4B5563" stroke-width="1.5" />
-        <circle cx="0" cy="0" r="11" stroke="#00F0B5" stroke-width="1.5" stroke-dasharray="4 3" class="spin-slow" />
-        <circle cx="0" cy="0" r="7" stroke="#FF2A6D" stroke-width="1.2" stroke-dasharray="2 3" class="spin-slow" style="animation-direction:reverse" />
+      <g transform="translate(180, 23)">
+        <circle cx="0" cy="0" r="16" fill="#0D0E12" stroke="#4B5563" stroke-width="1.5" />
+        <circle cx="0" cy="0" r="12" stroke="#00F0B5" stroke-width="1.6" stroke-dasharray="5 3" class="spin-slow" />
+        <circle cx="0" cy="0" r="8" stroke="#FFB800" stroke-width="1.3" stroke-dasharray="3 3" class="spin-slow" style="animation-direction:reverse" />
         <polygon points="0,-10 2.5,-2.5 10,0 2.5,2.5 0,10 -2.5,2.5 -10,0 -2.5,-2.5" fill="#FFF" class="pulse-core" />
       </g>
     </svg>
@@ -274,43 +344,45 @@ const SCENE_ART = {
         </linearGradient>
       </defs>
 
-      <!-- ลานน้ำพุกลางเมืองและละอองน้ำ -->
+      <!-- ลานน้ำพุกลางเมืองและสายน้ำพุเรืองแสง -->
       <g transform="translate(180, 86)" stroke="#374151" fill="#161821">
-        <path d="M-48 10 L-42 2 H42 L48 10 Z" stroke-width="1.5" />
-        <path d="M-30 2 L-24 -6 H24 L30 2 Z" stroke-width="1.5" />
+        <path d="M-52 10 L-46 2 H46 L52 10 Z" stroke-width="1.5" />
+        <path d="M-32 2 L-26 -6 H26 L32 2 Z" stroke-width="1.5" />
         <rect x="-4" y="-16" width="8" height="10" />
         <!-- สายน้ำพุโค้ง -->
-        <path d="M-2 -16 Q-18 -28 -32 -4" fill="none" stroke="#60A5FA" stroke-width="1.2" stroke-dasharray="3 3" class="fountain-arc" />
-        <path d="M2 -16 Q18 -28 32 -4" fill="none" stroke="#60A5FA" stroke-width="1.2" stroke-dasharray="3 3" class="fountain-arc" />
+        <path d="M-2 -16 Q-20 -30 -36 -4" fill="none" stroke="#60A5FA" stroke-width="1.4" stroke-dasharray="3 3" class="fountain-arc" />
+        <path d="M2 -16 Q20 -30 36 -4" fill="none" stroke="#60A5FA" stroke-width="1.4" stroke-dasharray="3 3" class="fountain-arc" />
       </g>
 
       <!-- วงโคจรและเส้นใยแสงเชื่อมโยงลูกแก้ว 5 สี -->
-      <g transform="translate(180, 46)">
-        <ellipse cx="0" cy="6" rx="96" ry="26" stroke="url(#orbitGrad)" stroke-width="1.8" stroke-dasharray="6 6" opacity="0.7" class="spin-slow" />
+      <g transform="translate(180, 45)">
+        <ellipse cx="0" cy="6" rx="100" ry="27" stroke="url(#orbitGrad)" stroke-width="2" stroke-dasharray="6 6" opacity="0.75" class="spin-slow" />
 
-        <!-- เส้นแสงเชื่อมโยงระหว่างเพื่อนร่วมทาง -->
-        <polygon points="-78,0 -34,24 34,24 78,0 0,-18" stroke="rgba(255,255,255,0.22)" stroke-width="1.2" fill="rgba(255,255,255,0.03)" />
+        <!-- เส้นแสงเชื่อมโยงระหว่างเพื่อนร่วมทางทั้ง 5 สาย -->
+        <polygon points="-80,0 -35,24 35,24 80,0 0,-19" stroke="rgba(255,255,255,0.28)" stroke-width="1.2" fill="rgba(255,255,255,0.03)" />
+        <line x1="-80" y1="0" x2="35" y2="24" stroke="rgba(255, 42, 109, 0.25)" stroke-width="1" />
+        <line x1="80" y1="0" x2="-35" y2="24" stroke="rgba(77, 97, 252, 0.25)" stroke-width="1" />
 
         <!-- ลูกแก้วพลังงาน 5 สีลอยกระเพื่อม -->
         <g class="float-y" style="animation-delay:0s">
-          <circle cx="-78" cy="0" r="8" fill="#FF2A6D" />
-          <circle cx="-78" cy="0" r="3" fill="#FFF" />
+          <circle cx="-80" cy="0" r="8.5" fill="#FF2A6D" />
+          <circle cx="-80" cy="0" r="3" fill="#FFF" />
         </g>
         <g class="float-y" style="animation-delay:0.3s">
-          <circle cx="-34" cy="24" r="8" fill="#FFB800" />
-          <circle cx="-34" cy="24" r="3" fill="#FFF" />
+          <circle cx="-35" cy="24" r="8.5" fill="#FFB800" />
+          <circle cx="-35" cy="24" r="3" fill="#FFF" />
         </g>
         <g class="float-y" style="animation-delay:0.6s">
-          <circle cx="34" cy="24" r="8.5" fill="#00F0B5" />
-          <circle cx="34" cy="24" r="3.5" fill="#FFF" />
+          <circle cx="35" cy="24" r="9" fill="#00F0B5" />
+          <circle cx="35" cy="24" r="3.5" fill="#FFF" />
         </g>
         <g class="float-y" style="animation-delay:0.9s">
-          <circle cx="78" cy="0" r="8" fill="#4D61FC" />
-          <circle cx="78" cy="0" r="3" fill="#FFF" />
+          <circle cx="80" cy="0" r="8.5" fill="#4D61FC" />
+          <circle cx="80" cy="0" r="3" fill="#FFF" />
         </g>
         <g class="float-y" style="animation-delay:1.2s">
-          <circle cx="0" cy="-18" r="8" fill="#A855F7" />
-          <circle cx="0" cy="-18" r="3" fill="#FFF" />
+          <circle cx="0" cy="-19" r="8.5" fill="#A855F7" />
+          <circle cx="0" cy="-19" r="3" fill="#FFF" />
         </g>
       </g>
     </svg>
@@ -340,36 +412,36 @@ const SCENE_ART = {
       <polygon points="275,95 265,0 340,0" fill="url(#spotPurple)" class="beam-sway-right" />
 
       <!-- คลื่นเสียง Equalizer หลากสีด้านหลังเวที -->
-      <g opacity="0.8">
-        <rect x="24" y="64" width="4" height="26" rx="2" fill="#FF2A6D" class="eq-bar" style="animation-delay:0.1s" />
-        <rect x="32" y="54" width="4" height="36" rx="2" fill="#FFB800" class="eq-bar" style="animation-delay:0.3s" />
-        <rect x="40" y="60" width="4" height="30" rx="2" fill="#00F0B5" class="eq-bar" style="animation-delay:0.5s" />
-        <rect x="48" y="68" width="4" height="22" rx="2" fill="#4D61FC" class="eq-bar" style="animation-delay:0.2s" />
+      <g opacity="0.85">
+        <rect x="20" y="62" width="4" height="28" rx="2" fill="#FF2A6D" class="eq-bar" style="animation-delay:0.1s" />
+        <rect x="28" y="52" width="4" height="38" rx="2" fill="#FFB800" class="eq-bar" style="animation-delay:0.3s" />
+        <rect x="36" y="58" width="4" height="32" rx="2" fill="#00F0B5" class="eq-bar" style="animation-delay:0.5s" />
+        <rect x="44" y="66" width="4" height="24" rx="2" fill="#4D61FC" class="eq-bar" style="animation-delay:0.2s" />
 
-        <rect x="308" y="68" width="4" height="22" rx="2" fill="#00F0B5" class="eq-bar" style="animation-delay:0.4s" />
-        <rect x="316" y="56" width="4" height="34" rx="2" fill="#4D61FC" class="eq-bar" style="animation-delay:0.2s" />
-        <rect x="324" y="52" width="4" height="38" rx="2" fill="#A855F7" class="eq-bar" style="animation-delay:0.6s" />
-        <rect x="332" y="64" width="4" height="26" rx="2" fill="#FF2A6D" class="eq-bar" style="animation-delay:0.1s" />
+        <rect x="312" y="66" width="4" height="24" rx="2" fill="#00F0B5" class="eq-bar" style="animation-delay:0.4s" />
+        <rect x="320" y="54" width="4" height="36" rx="2" fill="#4D61FC" class="eq-bar" style="animation-delay:0.2s" />
+        <rect x="328" y="50" width="4" height="40" rx="2" fill="#A855F7" class="eq-bar" style="animation-delay:0.6s" />
+        <rect x="336" y="62" width="4" height="28" rx="2" fill="#FF2A6D" class="eq-bar" style="animation-delay:0.1s" />
       </g>
 
       <!-- เวทีใหญ่และหอกระจายคลื่นเสียงใจกลางเมือง -->
       <g>
-        <path d="M112 96 C112 72, 248 72, 248 96 Z" fill="#181B26" stroke="#A855F7" stroke-width="1.5" />
-        <path d="M140 96 C140 80, 220 80, 220 96 Z" fill="#0D0E12" />
+        <path d="M110 96 C110 70, 250 70, 250 96 Z" fill="#181B26" stroke="#A855F7" stroke-width="1.6" />
+        <path d="M138 96 C138 78, 222 78, 222 96 Z" fill="#0D0E12" />
         <!-- เสาส่งสัญญาณกลางเวที -->
-        <path d="M173 76 L177 36 H183 L187 76 Z" fill="#252A3A" stroke="#4D61FC" stroke-width="1.2" />
-        <line x1="180" y1="14" x2="180" y2="36" stroke="#FFF" stroke-width="2" />
-        <circle cx="180" cy="14" r="4" fill="#FFB800" class="pulse-core" />
+        <path d="M173 75 L177 35 H183 L187 75 Z" fill="#252A3A" stroke="#4D61FC" stroke-width="1.3" />
+        <line x1="180" y1="13" x2="180" y2="35" stroke="#FFF" stroke-width="2" />
+        <circle cx="180" cy="13" r="4.5" fill="#FFB800" class="pulse-core" />
         <!-- คลื่นเสียงแผ่ออกรอบยอดเสา -->
-        <path d="M171 22 Q166 14 171 6 M189 22 Q194 14 189 6" stroke="#00F0B5" stroke-width="1.6" stroke-linecap="round" class="sound-wave" />
-        <path d="M164 26 Q156 14 164 2 M196 26 Q204 14 196 2" stroke="#FF2A6D" stroke-width="1.6" stroke-linecap="round" class="sound-wave" style="animation-delay:0.4s" />
+        <path d="M170 21 Q165 13 170 5 M190 21 Q195 13 190 5" stroke="#00F0B5" stroke-width="1.6" stroke-linecap="round" class="sound-wave" />
+        <path d="M163 25 Q155 13 163 1 M197 25 Q205 13 197 1" stroke="#FF2A6D" stroke-width="1.6" stroke-linecap="round" class="sound-wave" style="animation-delay:0.4s" />
       </g>
 
       <!-- พลุประกายสีสัน (Confetti Sparks) ลอยขึ้นฟ้า -->
-      <circle cx="72" cy="34" r="2.5" fill="#FFB800" class="confetti-rise" />
-      <circle cx="136" cy="26" r="2.5" fill="#FF2A6D" class="confetti-rise" style="animation-delay:0.5s" />
-      <circle cx="226" cy="28" r="2.5" fill="#00F0B5" class="confetti-rise" style="animation-delay:0.9s" />
-      <circle cx="288" cy="32" r="2.5" fill="#4D61FC" class="confetti-rise" style="animation-delay:1.3s" />
+      <circle cx="68" cy="34" r="2.8" fill="#FFB800" class="confetti-rise" />
+      <circle cx="132" cy="26" r="2.8" fill="#FF2A6D" class="confetti-rise" style="animation-delay:0.5s" />
+      <circle cx="228" cy="28" r="2.8" fill="#00F0B5" class="confetti-rise" style="animation-delay:0.9s" />
+      <circle cx="292" cy="32" r="2.8" fill="#4D61FC" class="confetti-rise" style="animation-delay:1.3s" />
 
       <!-- เงาผู้คนร่วมเฉลิมฉลองหน้าเวที -->
       <path d="M0 110 V96 H360 V110 Z" fill="#090A0D" />
