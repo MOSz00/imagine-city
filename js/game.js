@@ -753,6 +753,9 @@ function renderResult() {
   document.documentElement.style.setProperty("--progress", "1");
   progressWrap.hidden = true;
 
+  const pulseText = document.getElementById("pulsePercent");
+if (pulseText) pulseText.textContent = "100% RESTORED";
+
   const winners = calculateResult(scores, answer52);
   const isMixed = winners.length === 2;
 
@@ -847,3 +850,8 @@ function renderResult() {
 }
 
 initGame();
+
+window.addEventListener("mousemove", (e) => {
+  document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
+  document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
+});
